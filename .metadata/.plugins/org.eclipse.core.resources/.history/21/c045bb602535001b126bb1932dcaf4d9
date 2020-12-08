@@ -1,0 +1,5 @@
+package com.cg.onlineterminsurance.exception;
+
+public class ResourceNotFoundException {
+
+}

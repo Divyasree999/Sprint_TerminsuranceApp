@@ -1,0 +1,15 @@
+package com.cg.terminsurancepayment.exception;
+/** The DuplicatePaymentException layer provides customized Exceptions
+ * 
+ * @author G5
+ * 
+ * 
+ */
+public class DuplicatePaymentException extends Exception {
+	private static final long serialVersionUID = 1L;
+	public static final String MESSAGE = "Payment already exists with this id.";
+
+	public DuplicatePaymentException(final String MESSAGE) {
+		super(MESSAGE);
+	}
+}

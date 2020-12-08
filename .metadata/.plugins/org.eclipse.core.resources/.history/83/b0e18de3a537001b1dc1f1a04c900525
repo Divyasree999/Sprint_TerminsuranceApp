@@ -1,0 +1,97 @@
+package com.cg.terminsurancepayment.service;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import com.cg.terminsurancepayment.entity.Payment;
+//import com.cg.terminsurancepayment.exception.DuplicatePaymentException;
+//import com.cg.terminsurancepayment.exception.PaymentIdNotFoundException;
+import com.cg.terminsurancepayment.repository.PaymentDaoImpl;
+
+@SpringBootTest
+class PaymentServiceTest {
+
+	@Autowired
+	private PaymentService paymentService;
+	
+	@MockBean
+	private PaymentDaoImpl paymentDaoImpl;	
+	@Test
+	void testSavePayment() throws Exception{
+		Payment payment = new Payment();
+		payment.setPaymentId(102345);
+		payment.setType("Debit");
+		payment.setStatus("Success");
+		payment.setCardName("Girija");
+		payment.setCardNumber("6565 1234 5453 7771");
+		payment.setCardExpiry("02/2022");
+		payment.setCvv(123);
+	}
+	@Test
+	void testUpdatePaymentById() throws Exception {
+		Payment payment = new Payment();
+		payment.setPaymentId(102345);
+		payment.setType("Debit");
+		payment.setStatus("Success");
+		payment.setCardName("Girija");
+		payment.setCardNumber("6565 1234 5453 7771");
+		payment.setCardExpiry("02/2022");
+		payment.setCvv(123);
+
+		Mockito.when(paymentDaoImpl.findByPaymentId(102345)).thenReturn(payment);
+		payment.setStatus("Failed");
+		Mockito.when(paymentDaoImpl.save(payment)).thenReturn(payment);
+		System.out.println(payment.getStatus());
+		// assertThat(paymentService.updatePayment(102345,
+		// payment)).isEqualTo(payment);
+	}
+	@Test
+	public void testGetPaymentById() throws Exception {
+		Payment payment = new Payment();
+		payment.setPaymentId(102345);
+		payment.setType("Debit");
+		payment.setStatus("Success");
+		payment.setCardName("Girija");
+		payment.setCardNumber("6565 1234 5453 7771");
+		payment.setCardExpiry("02/2022");
+		payment.setCvv(123);
+
+		Mockito.when(paymentDaoImpl.findByPaymentId(102345)).thenReturn(payment);
+		// findPaymentById()).get()).thenReturn(payment);
+		// Mockito.when(paymentDaoImpl.findById(payment.getPaymentId()).get()).thenReturn(payment);
+		assertThat(paymentService.findPaymentById(102345)).isEqualTo(payment);
+	}
+	@Test
+	void testGetAllPayments() throws Exception{
+		Payment payment = new Payment();
+		payment.setPaymentId(102345);
+		payment.setType("Debit");
+		payment.setStatus("Success");
+		payment.setCardName("Girija");
+		payment.setCardNumber("6565 1234 5453 7771");
+		payment.setCardExpiry("02/2022");
+		payment.setCvv(123);
+		
+		Payment payment1 = new Payment();
+		payment1.setPaymentId(102334);
+		payment1.setType("Credit");
+		payment1.setStatus("Failed");
+		payment1.setCardName("sarayu");
+		payment1.setCardNumber("6747 2234 5888 3241");
+		payment1.setCardExpiry("12/2032");
+		payment1.setCvv(634);
+
+		List<Payment> paymentList = new ArrayList<>();
+		paymentList.add(payment);
+		paymentList.add(payment1);
+
+		Mockito.when(paymentDaoImpl.findAll()).thenReturn(paymentList);
+		assertThat(paymentService.getAllPayments()).isEqualTo(paymentList);
+	}
+
+}

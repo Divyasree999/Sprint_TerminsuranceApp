@@ -1,0 +1,10 @@
+package com.cg.terminsuranceuser.service;
+
+public interface UserService {
+	public List<User> getAllUsers();
+	public User findUserById(Integer userpolicyid) throws ResourceNotFoundException;
+	public boolean deleteUserById(Integer userpolicyid)throws ResourceNotFoundException;
+	public User saveUser(User user);
+	public User updateUser(Integer userpolicyid,User user)throws ResourceNotFoundException;
+	//public List<userPolicy> findByUserIdAndPolicyId(int userId,int policyNo);
+}

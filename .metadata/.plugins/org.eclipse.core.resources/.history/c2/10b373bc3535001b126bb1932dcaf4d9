@@ -1,0 +1,100 @@
+package com.cg.terminsurance.user.entity;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name="USER")
+public class User {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="user_policy_id")
+	int userpolicyid;
+	@Column(name="user_id")
+	int userid;
+	@Column(name="policy_id")
+	int policyid;
+	@Column(name="user_name")
+    String userName;
+	@Column(name="email")
+	String email;
+	@Column(name="mobile_no")
+	String mobileNo;
+	@Column(name="age")
+	int age;
+	@Column(name="dob")
+	String dob;
+	public User(){
+		super();
+	}
+	public User(int userid, int policyid, String userName, String email, String mobileNo, int age, String dob) {
+		super();
+		//this.userpolicyid = userpolicyid;
+		this.userid = userid;
+		this.policyid = policyid;
+		this.userName = userName;
+		this.email = email;
+		this.mobileNo = mobileNo;
+		this.age = age;
+		this.dob = dob;
+	}
+	@Column(name = "UserPolicy_Id",nullable=false)
+	public int getUserpolicyid() {
+		return userpolicyid;
+	}
+	public void setUserpolicyid(int userpolicyid) {
+		this.userpolicyid = userpolicyid;
+	}
+	@Column(name = "User_Id",nullable=false)
+	public int getUserid() {
+		return userid;
+	}
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
+	@Column(name = "Policy_Id",nullable=false)
+	public int getPolicyid() {
+		return policyid;
+	}
+	public void setPolicyid(int policyid) {
+		this.policyid = policyid;
+	}
+	@Column(name = "UserNmae",nullable=false)
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	@Column(name = "Email",nullable=false)
+	public String getEmail() {
+		return email;
+	}
+	public void setAmount(String email) {
+		this.email = email;
+	}
+	@Column(name = "MobileNo",nullable=false)
+	public String getMobileNo() {
+		return mobileNo;
+	}
+	public void setMobileNo( totalTime) {
+		this.totalTime = totalTime;
+	}
+	@Column(name = "MonthOver",nullable=false)
+	public int getMonthOver() {
+		return monthOver;
+	}
+	public void setMonthOver(int monthOver) {
+		this.monthOver = monthOver;
+	}
+	@Column(name = "AmountPaid",nullable=false)
+	public double getAmountPaid() {
+		return amountPaid;
+	}
+	public void setAmountPaid(double amountPaid) {
+		this.amountPaid = amountPaid;
+	}
+	
+}

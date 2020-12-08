@@ -1,0 +1,72 @@
+package com.cg.terminsurancecustomer.service;
+
+import java.util.List;
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.cg.terminsurancecustomer.entity.Customer;
+import com.cg.terminsurancecustomer.exception.ResourceNotFoundException;
+import com.cg.terminsurancecustomer.repository.CustomerDaoImpl;
+@Service
+@Transactional
+public class CustomerServiceImpl implements CustomerService{
+	@Autowired
+	private CustomerDaoImpl user;
+	
+
+	public List<Customer> getAllCustomers(){
+		return user.findAll();
+	}
+
+	public Customer findCustomerById(@PathVariable(value="id")Integer userId) throws ResourceNotFoundException {
+	
+		Customer u =user.findByCustomerId(userId);
+		if(u==null)
+		{
+			new ResourceNotFoundException("Customer not found for this id :: " + userId);
+		}
+		return u;
+	}
+
+   /*public List<user> findByCustomerIdAndPolicyId(int userId,int policyId) {
+        return (List<userPolicy>) user.findByCustomerIdAndPolicyId(userId, policyId);
+    }*/
+    public boolean deleteCustomerById(Integer userId) throws ResourceNotFoundException {
+    	Customer u = user.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("Customer not found for this id :: " + userId));
+    	 user.delete(u);
+    	 if(null == u){
+	            return true;
+	        }
+	        return false;
+    }
+			
+
+	public Customer saveCustomer(Customer u) {
+		
+		return user.save(u);
+	}
+
+	public Customer updateCustomer(Integer userId,Customer u) throws ResourceNotFoundException {
+		Customer u1 = user.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("Customer  not found for this id :: " + userId));
+		u1.setCustomerId(u.getCustomerId());
+		u1.setPolicyId(u.getPolicyId());
+		u1.setCustomerName(u.getCustomerName());
+		u1.setEmail(u.getEmail());
+		u1.setMobileNo(u.getMobileNo());
+		u1.setAge(u.getAge());
+		u1.setDob(u.getDob());
+		final Customer updatedCustomer =user.save(u1);
+		return updatedCustomer;
+	}
+	
+
+	public List<Customer> saveAll() {
+		
+		return null;
+	}
+}

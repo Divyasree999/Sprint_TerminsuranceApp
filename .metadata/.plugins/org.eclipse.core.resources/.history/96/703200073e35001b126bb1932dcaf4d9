@@ -1,0 +1,9 @@
+package com.cg.terminsurance.user.exception;
+
+import java.util.regex.*;
+
+import com.cg.terminsurance.user.entity.User;
+import com.cg.terminsurance.user.exception.ResourceNotFoundException;
+public class UserValidator {
+
+}

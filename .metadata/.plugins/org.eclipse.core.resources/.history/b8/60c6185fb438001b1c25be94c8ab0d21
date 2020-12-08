@@ -1,0 +1,19 @@
+package com.cg.terminsurancepayment.exception;
+/*
+ * Payment Validations
+ * @author - Divya
+ */
+import java.util.regex.*;
+public class PaymentValidator {
+	public boolean validateCustomerId(Integer customerId)throws CardIdNotFoundException {
+		String regex="^[0-9]{8}*$";
+		Pattern pat=Pattern.compile(regex);
+		Matcher m=null;
+		try {
+		 m = pat.matcher(String.valueOf(customerId));
+		}catch(NumberFormatException e) {
+			//throw new ResourceNotFoundException("enter a valid Id");
+			}
+		return m.matches();
+	}
+}

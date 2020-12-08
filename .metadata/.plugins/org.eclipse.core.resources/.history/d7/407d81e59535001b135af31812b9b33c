@@ -1,0 +1,73 @@
+package com.cg.terminsurancepayment.service;
+/** The IPaymentServiceImpl class provides access to repository methods to CRUD operations Cart details 
+ * 
+ * 
+ * @author G5
+ *
+ */
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cg.terminsurancepayment.entity.Payment;
+import com.cg.terminsurancepayment.repository.PaymentDaoImpl;
+import com.cg.terminsurancepayment.exception.DuplicatePaymentException;
+import com.cg.terminsurancepayment.exception.PaymentIdNotFoundException;
+
+@Service
+public class PaymentServiceImpl {
+	@Autowired
+	private PaymentDaoImpl paymentRepository;
+	
+	
+	
+	public PaymentDaoImpl getPaymentRepository() {
+		return paymentRepository;
+	}
+
+	public void setPaymentRepository(PaymentDaoImpl paymentRepository) {
+		this.paymentRepository = paymentRepository;
+	}
+
+	@Override
+	public Payment addPayment(Payment payment) throws DuplicatePaymentException{
+		Payment payment1 = paymentRepository.save(payment);
+		if(payment1 != null) {
+			return payment1;
+		}
+		else {
+			throw new DuplicatePaymentException(DuplicatePaymentException.MESSAGE);
+		}
+	}
+
+	@Override
+	public Payment removePayment(long id) throws PaymentIdNotFoundException{
+		Payment payment = paymentRepository.findById(id).orElseThrow(() -> new PaymentIdNotFoundException(PaymentIdNotFoundException.MESSAGE));
+		paymentRepository.delete(payment);
+		return payment;
+	}
+
+	@Override
+	public Payment updatePayment(long id, Payment payment) throws PaymentIdNotFoundException{
+		if(paymentRepository.existsById(id)) {
+			return paymentRepository.save(payment);
+		}
+		throw new PaymentIdNotFoundException(PaymentIdNotFoundException.MESSAGE);
+	}
+
+	@Override
+	public  Payment getPaymentDetails(long id) throws PaymentIdNotFoundException{
+		 Optional<Payment> payment = paymentRepository.findById(id);
+		 if(payment.isPresent()) {
+			 return payment.get();
+		 }
+		 throw new PaymentIdNotFoundException(PaymentIdNotFoundException.MESSAGE);
+	}
+
+	@Override
+	public List<Payment> getAllPaymentDetails() {
+		return paymentRepository.findAll();
+	}
+}

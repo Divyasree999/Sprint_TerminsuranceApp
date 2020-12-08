@@ -1,0 +1,12 @@
+
+d
+java:S2259*"?A "NullPointerException" could be thrown; "m" is nullable here.(œ¾ûãHßRMAJORZBUG
+l	java:S125"<This block of commented-out lines of code should be removed.(òñ…èýÿÿÿÿHéRMAJORZ
+CODE_SMELL
+g	java:S125("<This block of commented-out lines of code should be removed.(ÆèÁƒHˆRMAJORZ
+CODE_SMELL
+U
+java:S5856""(Fix the syntax errors inside this regex.(’Ò…¾ùÿÿÿÿH…RCRITICALZBUG
+Å
+java:S1130!"™Remove the declaration of thrown exception 'com.cg.terminsurancecustomer.exception.ResourceNotFoundException', as it cannot be thrown from method's body.(€·bHèRMINORZ
+CODE_SMELL

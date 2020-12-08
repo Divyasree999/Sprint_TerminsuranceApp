@@ -1,0 +1,5 @@
+package com.cg.terminsurance.user.repository;
+
+public class UserDaoImpl {
+
+}

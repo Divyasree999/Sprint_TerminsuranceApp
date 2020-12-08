@@ -1,0 +1,5 @@
+package com.cg.onlineterminsurance.control;
+
+public class PaymentController {
+
+}

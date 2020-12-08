@@ -1,0 +1,122 @@
+package com.cg.terminsuranceuser.repository;
+
+import java.sql.Date;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import com.cg.terminsuranceuser.entity.User;
+
+import org.junit.Assert;
+import static org.assertj.core.api.Assertions.assertThat;
+
+@RunWith(SpringRunner.class)
+@DataJpaTest
+public class UserDaoImplTest {
+	@Autowired
+	private UserDaoImpl userDaoImpl;
+	@Autowired
+	private TestEntityManager testEntityManager;
+	@Test
+	public void testNewUser() throws Exception{
+		User user=getUser();
+		User saveInDb=testEntityManager.persist(user);
+		User getFromInDb=userDaoImpl.findById(saveInDb.getUserId()).get();
+				assertThat(getFromInDb).isEqualTo(saveInDb);
+}
+	private User getUser() {
+		User user=new User();
+		user.setUserId(10178278);
+	    user.setPolicyId(401273827);
+	    user.setUserName("Sanya");
+        user.setEmail("sanya123@gmail.com");
+        user.setMobileNo("7893436347");
+        user.setAge(25);
+        user.setDob("13-08-1996");
+	    return user;
+	}
+	@Test
+	public void testGetUserById() throws Exception{
+		User user=new User();
+		user.setUserId(10178267);
+	    user.setPolicyId(401273851);
+	    user.setUserName("Suraj");
+        user.setEmail("suraj7883@gmail.com");
+        user.setMobileNo("7879101818");
+        user.setAge(28);
+        user.setDob("07-02-1993");
+        User saveInDb=testEntityManager.persist(user);
+        User getInDb=userDaoImpl.findById(user.getUserpolicyid()).get();
+        assertThat(getInDb).isEqualTo(saveInDb);
+	}
+	@Test
+	public void testGetAllUsers() throws Exception{
+		User user1=new User();
+	    user1.setUserId(10178263);
+	    user1.setPolicyId(401273823);
+	    user1.setUserName("Hema");
+        user1.setEmail("hema26@gmail.com");
+        user1.setMobileNo("7845326170");
+        user1.setAge(27);
+        user1.setDob("16-07-1993");
+       User user2=new User();
+	    user2.setUserId(10132263);
+	    user2.setPolicyId(411273823);
+	    user2.setUserName("Rajesh");
+        user2.setEmail("rajesh1456@gmail.com");
+        user2.setMobileNo("888324151");
+        user2.setAge(35);
+        user2.setDob("09-03-1986");
+        testEntityManager.persist(user1);
+        testEntityManager.persist(user2);
+        List<User> userList=(List<User>) userDaoImpl.findAll();
+        Assert.assertEquals(2, userList.size());
+        
+	}
+	@Test
+	public void testDeleteUserById() throws Exception{
+		User user1=new User();
+	    user1.setUserId(105);
+	    user1.setPolicyId(402);
+	    user1.setUserName(Date.valueOf("2000-11-10"));
+        user1.setEmail(24);
+        user1.setMobileNo(80000.00);
+        user1.setAge(4);
+        user1.setDob(7000.00);
+        User user2=new User();
+	    user2.setUserId(107);
+	    user2.setPolicyId(402);
+	    user2.setUserName(Date.valueOf("2000-11-10"));
+        user2.setEmail(24);
+        user2.setMobileNo(80000.00);
+        user2.setAge(4);
+        user2.setDob(7000.00);
+        User user3=testEntityManager.persist(user1);
+        testEntityManager.persist(user2);
+        testEntityManager.remove(user3);
+        List<User> policies=(List<User>) userDaoImpl.findAll();
+        Assert.assertEquals(policies.size(),1);
+        
+	}
+	@Test
+	public void testUpdateUser() {
+		User user=new User();
+	    user.setUserId(108);
+	    user.setPolicyId(402);
+	    user.setUserName("Sanya");
+        user.setEmail(24);
+        user.setMobileNo(80000.00);
+        user.setAge(4);
+        user.setDob(7000.00);
+        testEntityManager.persist(user);
+        User getFromDb=userDaoImpl.findById(user.getUserpolicyid()).get();
+        getFromDb.setMobileNo(100000.00);
+        testEntityManager.persist(getFromDb);
+        assertThat(getFromDb.getMobileNo()).isEqualTo(100000.00);
+	}
+}

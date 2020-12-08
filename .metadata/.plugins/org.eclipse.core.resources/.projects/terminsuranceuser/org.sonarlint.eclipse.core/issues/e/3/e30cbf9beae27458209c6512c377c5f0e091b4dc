@@ -1,0 +1,14 @@
+
+Z
+java:S3984"5Throw this exception or remove this useless statement(Äœ»HRMAJORZBUG
+g	java:S125""<This block of commented-out lines of code should be removed.(”Ê¼ÁHRMAJORZ
+CODE_SMELL
+r
+java:S1126)"AReplace this if-then-else statement by a single return statement.(ü†¤³ûÿÿÿÿH‘RMINORZ
+CODE_SMELL
+˜
+java:S1488?"gImmediately return this expression instead of assigning it to the temporary variable "updatedCustomer".(†àÍüøÿÿÿÿH‹RMINORZ
+CODE_SMELL
+W
+java:S1168F"+Return an empty collection instead of null.(¥¹ïH’RMAJORZ
+CODE_SMELL

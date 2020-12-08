@@ -1,0 +1,160 @@
+package com.cg.terminsuranceuser.control;
+import com.cg.terminsuranceuser.entity.User;
+import com.cg.terminsuranceuser.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import static org.assertj.core.api.Assertions.assertThat;
+@RunWith(SpringRunner.class)
+@WebMvcTest(value = UserController.class)
+public class UserControllerTest {
+	@Autowired
+    private MockMvc mockMvc;
+ @MockBean
+    private UserService userPolicyService;
+
+ @Test
+	public void testCreateUser() throws Exception{
+	        String URI = "/api/v2/saveuserpolicy";
+	        User user = new User();
+	        user.setUserpolicyid(201);
+	        user.setUserid(101);
+		    user.setPolicyid(401);
+		    user.setRegisteredDate(Date.valueOf("2000-09-08"));
+	        user.setTotalTime(12);
+	        user.setAmount(60000.00);
+	        user.setMonthOver(2);
+	        user.setAmountPaid(5000.00);
+
+	        String jsonInput = this.converttoJson(user);
+
+	        Mockito.when(userPolicyService.saveUser(Mockito.any(User.class))).thenReturn(user);
+	        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.post(URI).accept(MediaType.APPLICATION_JSON).content(jsonInput).contentType(MediaType.APPLICATION_JSON))
+	                .andReturn();
+	        MockHttpServletResponse mockHttpServletResponse = mvcResult.getResponse();
+	        String jsonOutput = mockHttpServletResponse.getContentAsString();
+	        assertThat(jsonInput).isEqualTo(jsonOutput);
+	        Assert.assertEquals(HttpStatus.OK.value(), mockHttpServletResponse.getStatus());
+ }
+ @Test
+	public void testGetUserById() throws Exception {
+		String URI= "/api/v2/finduserpolicy/{id}";
+		User user = new User();
+		user.setUserpolicyid(202);
+        user.setUserid(102);
+	    user.setPolicyid(401);
+	    user.setRegisteredDate(Date.valueOf("2000-11-10"));
+        user.setTotalTime(12);
+        user.setAmount(60000.00);
+        user.setMonthOver(2);
+        user.setAmountPaid(5000.00);
+        
+        String jsonInput = this.converttoJson(user);
+
+       Mockito.when(userPolicyService.findUserById(Mockito.any())).thenReturn(user);
+        //Assert.assertTrue(userpolicyService.findUserById());
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get(URI, 202).accept(MediaType.APPLICATION_JSON)).andReturn();
+        MockHttpServletResponse mockHttpServletResponse = mvcResult.getResponse();
+        String jsonOutput = mockHttpServletResponse.getContentAsString();
+
+        assertThat(jsonInput).isEqualTo(jsonOutput);
+	}
+ @Test
+	public void testUpdateUser() throws Exception {
+		String URI = "/api/v2/updateuserpolicy/{id}";
+		User user = new User();
+		user.setUserpolicyid(202);
+        user.setUserid(105);
+	    user.setPolicyid(401);
+	    user.setRegisteredDate(Date.valueOf("2000-11-10"));
+        user.setTotalTime(12);
+        user.setAmount(60000.00);
+        user.setMonthOver(2);
+        user.setAmountPaid(5000.00);
+        String jsonInput = this.converttoJson(user);
+
+        Mockito.when(userPolicyService.updateUser(Mockito.any(),Mockito.any())).thenReturn(user);
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.put(URI,105).accept(MediaType.APPLICATION_JSON).content(jsonInput).contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+        MockHttpServletResponse mockHttpServletResponse = mvcResult.getResponse();
+        String jsonOutput = mockHttpServletResponse.getContentAsString();
+
+        assertThat(jsonInput).isEqualTo(jsonOutput);
+	}
+ @Test
+	public void testDeleteUser() throws Exception {
+		String URI = "/api/v2/deleteuserpolicy/{id}";
+		User user = new User();
+		user.setUserpolicyid(201);
+		 user.setUserid(105);
+		    user.setPolicyid(401);
+		    user.setRegisteredDate(Date.valueOf("2000-11-08"));
+	        user.setTotalTime(12);
+	        user.setAmount(60000.00);
+	        user.setMonthOver(2);
+	        user.setAmountPaid(5000.00);
+
+        Mockito.when(userPolicyService.findUserById(Mockito.any())).thenReturn(user);
+        Mockito.when(userPolicyService.deleteUserById(Mockito.any())).thenReturn(true);
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.delete(URI, 105).accept(MediaType.APPLICATION_JSON)).andReturn();
+        MockHttpServletResponse mockHttpServletResponse = mvcResult.getResponse();
+
+        Assert.assertNotEquals(HttpStatus.OK.value(), mockHttpServletResponse.getStatus());
+	}
+ @Test
+	public void testGetAllUserPolicies() throws Exception {
+		String URI = "/api/v2/getAlluserpolicies";
+		User user = new User();
+		user.setUserpolicyid(201);
+		 user.setUserid(105);
+		    user.setPolicyid(401);
+		    user.setRegisteredDate(Date.valueOf("2000-11-10"));
+	        user.setTotalTime(12);
+	        user.setAmount(60000.00);
+	        user.setMonthOver(2);
+	        user.setAmountPaid(5000.00);
+	        
+	        User user1 = new User();
+	        user.setUserId(201);
+			 user1.setUserid(105);
+			    user1.setPolicyid(401);
+			    user1.setRegisteredDate(Date.valueOf("2000-11-10"));
+		        user1.setTotalTime(12);
+		        user1.setAmount(60000.00);
+		        user1.setMonthOver(2);
+		        user1.setAmountPaid(5000.00);
+	    	 List<User> userPolicyList=new ArrayList<>();
+	    	  userPolicyList.add(user);
+	    	userPolicyList.add(user);
+	    	 
+	    	String jsonInput = this.converttoJson(userPolicyList);
+
+	         Mockito.when(userService.getAllUsers()).thenReturn(userPolicyList);
+	         MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get(URI).accept(MediaType.APPLICATION_JSON)).andReturn();
+	         MockHttpServletResponse mockHttpServletResponse = mvcResult.getResponse();
+	         String jsonOutput = mockHttpServletResponse.getContentAsString();
+
+	        assertThat(jsonInput).isEqualTo(jsonOutput);
+	     }
+	private String converttoJson(Object user) throws JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.writeValueAsString(user);
+	}
+}

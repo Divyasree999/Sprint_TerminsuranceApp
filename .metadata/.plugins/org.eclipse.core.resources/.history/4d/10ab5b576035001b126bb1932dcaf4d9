@@ -1,0 +1,13 @@
+package com.cg.terminsuranceuser.exception;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+public class Validation {
+	public boolean validateUserId(Integer userId) {
+	    String regex="^[0-9]{8}*$";
+	    Pattern pattern=Pattern.compile(regex);
+	    Matcher m=null;
+	    m = pattern.matcher(String.valueOf(userId));
+	    return m.matches();
+    }
+}	

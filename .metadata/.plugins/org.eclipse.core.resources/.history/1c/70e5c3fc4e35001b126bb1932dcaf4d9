@@ -1,0 +1,5 @@
+package com.cg.onlineterminsurance.repository;
+
+public class PaymentDaoImplTest {
+
+}

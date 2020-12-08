@@ -1,0 +1,12 @@
+
+Ä
+java:S1130"‹Remove the declaration of thrown exception 'com.cg.terminsurancepayment.exception.PaymentIdNotFoundException' which is a runtime exception.(Äßƒ¦úÿÿÿÿ8ƒÄð´ã.HÄRMINORZ
+CODE_SMELL
+ž
+java:S1488$"fImmediately return this expression instead of assigning it to the temporary variable "updatedPayment".(¢Çªïþÿÿÿÿ8¡³ˆµã.HÅRMINORZ
+CODE_SMELL
+a
+java:S3984+"5Throw this exception or remove this useless statement(¡í÷¹8¡³ˆµã.HÇRMAJORZBUG
+¿
+java:S1130'"‹Remove the declaration of thrown exception 'com.cg.terminsurancepayment.exception.PaymentIdNotFoundException' which is a runtime exception.(È°ŽÖ8¡³ˆµã.HÈRMINORZ
+CODE_SMELL

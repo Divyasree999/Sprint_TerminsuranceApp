@@ -1,0 +1,13 @@
+package com.cg.terminsuranceuser.service;
+
+import java.util.List;
+import com.cg.terminsuranceuser.entity.User;
+import com.cg.terminsuranceuser.exception.ResourceNotFoundException;
+public interface UserService {
+	public List<User> getAllUsers();
+	public User findUserById(Integer userId) throws ResourceNotFoundException;
+	public boolean deleteUserById(Integer userId)throws ResourceNotFoundException;
+	public User saveUser(User user);
+	public User updateUser(Integer userId,User user)throws ResourceNotFoundException;
+	//public List<userPolicy> findByUserIdAndPolicyId(int userId,int policyId);
+}

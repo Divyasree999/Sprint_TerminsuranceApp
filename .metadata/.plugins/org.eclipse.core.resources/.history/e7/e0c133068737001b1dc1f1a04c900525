@@ -1,0 +1,67 @@
+package com.cg.terminsurancepayment.service;
+
+/** The IPaymentServiceImpl class provides access to repository methods to CRUD operations Cart details 
+ * 
+ * 
+ * @author G5
+ *
+ */
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cg.terminsurancepayment.entity.Payment;
+import com.cg.terminsurancepayment.repository.PaymentDaoImpl;
+import com.cg.terminsurancepayment.exception.DuplicatePaymentException;
+import com.cg.terminsurancepayment.exception.PaymentIdNotFoundException;
+
+@Service
+public class PaymentServiceImpl {
+	@Autowired
+	private PaymentDaoImpl paymentDao;
+
+	public PaymentDaoImpl getPaymentRepository() {
+		return paymentDao;
+	}
+
+	public void setPaymentRepository(PaymentDaoImpl paymentDao) {
+		this.paymentDao = paymentDao;
+	}
+
+	public Payment addPayment(Payment payment) throws DuplicatePaymentException {
+		Payment payment1 = paymentDao.save(payment);
+		if (payment1 != null) {
+			return payment1;
+		} else {
+			throw new DuplicatePaymentException(DuplicatePaymentException.MESSAGE);
+		}
+	}
+
+	public Payment removePayment(long id) throws PaymentIdNotFoundException {
+		Payment payment = paymentDao.findById(id)
+				.orElseThrow(() -> new PaymentIdNotFoundException(PaymentIdNotFoundException.MESSAGE));
+		paymentDao.delete(payment);
+		return payment;
+	}
+
+	public Payment updatePayment(long id, Payment payment) throws PaymentIdNotFoundException {
+		if (paymentDao.existsById(id)) {
+			return paymentDao.save(payment);
+		}
+		throw new PaymentIdNotFoundException(PaymentIdNotFoundException.MESSAGE);
+	}
+
+	public Payment getPaymentDetails(long id) throws PaymentIdNotFoundException {
+		Optional<Payment> payment = paymentDao.findById(id);
+		if (payment.isPresent()) {
+			return payment.get();
+		}
+		throw new PaymentIdNotFoundException(PaymentIdNotFoundException.MESSAGE);
+	}
+
+	public List<Payment> getAllPaymentDetails() {
+		return paymentDao.findAll();
+	}
+}

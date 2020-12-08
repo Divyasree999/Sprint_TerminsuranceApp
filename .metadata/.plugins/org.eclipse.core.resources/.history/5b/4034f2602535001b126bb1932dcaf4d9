@@ -1,0 +1,5 @@
+package com.cg.onlineterminsurance.service;
+
+public class PaymentService {
+
+}

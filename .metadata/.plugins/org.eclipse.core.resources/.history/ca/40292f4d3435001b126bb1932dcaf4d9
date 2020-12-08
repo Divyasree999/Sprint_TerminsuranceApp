@@ -1,0 +1,29 @@
+package com.cg.terminsurance.user.entity;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name="USER")
+public class User {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="user_policy_id")
+	int userpolicyid;
+	@Column(name="user_id")
+	int userid;
+	@Column(name="policy_id")
+	int policyid;
+	@Column(name="user_name")
+    String userName;
+	@Column(name="email")
+	String email;
+	@Column(name="mobile_no")
+	String mobileNo;
+	@Column(name="age")
+	int age;
+	@Column(name="dob")
+	String dob;
+}

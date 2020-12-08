@@ -1,0 +1,24 @@
+1606920905975	Copy file
+1606971889501	Rename package 'com.cg.onlineterminsurance'
+1606971915826	Rename package 'com.cg.onlineterminsurance.user'
+1606990037050	Rename package 'com.cg.onlineterminsurance'
+1606990063085	Rename package 'com.cg.terminsuranceuser'
+1606990215320	Rename package 'com.cg.terminsurance.user'
+1606990264680	Rename package 'com.cg.terminsurance.user'
+1606998733281	Rename type 'UserServiceTest'
+1607001047825	Rename type 'UserServiceImplTest'
+1607050177608	Delete element
+1607062530427	Delete element
+1607065553070	Rename type 'UserController'
+1607065567719	Rename type 'UserControllerTest'
+1607065593735	Rename type 'User'
+1607065627912	Rename type 'UserApp'
+1607065650654	Rename type 'UserValidator'
+1607065679187	Rename type 'UserDaoImpl'
+1607065683030	Rename type 'UserDaoImplTest'
+1607065704305	Rename type 'UserService'
+1607065707908	Rename type 'UserServiceTest'
+1607065723159	Rename type 'UserServiceImpl'
+1607066028801	Delete element
+1607066054676	Rename package 'com.cg.terminsuranceuser'
+1607066308086	Rename package 'com.cg.terminsuranceuser'

@@ -1,0 +1,100 @@
+package com.cg.terminsurancepayment.entity;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+//import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.stereotype.Component;
+
+@Entity
+@Table(name = "card")
+@Component
+public class Card {
+
+	@Id
+	//@Column(name = "CARD_ID")
+	private long cardId;
+	//@Column(name = "CARD_NAME")
+	private String cardName;
+	//@Column(name = "CARD_NUMBER")
+	private String cardNumber;
+	//@Column(name = "CARD_EXPIRY")
+	private LocalDate cardExpiry;
+	//@Column(name = "CVV")
+	private int cvv;
+	
+	@Transient
+	private List<Payment> payments = new ArrayList<Payment>(); // Initialization required to avoid NullPointerException
+
+	public Card() {
+
+	}
+
+	public Card(long cardId, String cardName, String cardNumber, LocalDate cardExpiry, int cvv) {
+		super();
+		this.cardId = cardId;
+		this.cardName = cardName;
+		this.cardNumber = cardNumber;
+		this.cardExpiry = cardExpiry;
+		this.cvv = cvv;
+	}
+
+	public long getCardId() {
+		return cardId;
+	}
+
+	public void setCardId(long cardId) {
+		this.cardId = cardId;
+	}
+
+	public String getCardName() {
+		return cardName;
+	}
+
+	public void setCardName(String cardName) {
+		this.cardName = cardName;
+	}
+
+	public String getCardNumber() {
+		return cardNumber;
+	}
+
+	public void setCardNumber(String cardNumber) {
+		this.cardNumber = cardNumber;
+	}
+
+	public LocalDate getCardExpiry() {
+		return cardExpiry;
+	}
+
+	public void setCardExpiry(LocalDate cardExpiry) {
+		this.cardExpiry = cardExpiry;
+	}
+
+	public int getCvv() {
+		return cvv;
+	}
+
+	public void setCvv(int cvv) {
+		this.cvv = cvv;
+	}
+
+	public List<Payment> getPayments() {
+		return payments;
+	}
+
+	public void setPayments(List<Payment> payments) {
+		this.payments = payments;
+	}	 
+
+	@Override
+	public String toString() {
+		return "Card [cardId=" + cardId + ", cardName=" + cardName + ", cardNumber=" + cardNumber + ", cardExpiry="
+				+ cardExpiry + ", cvv=" + cvv + ", payments=" + payments + "]";
+	}
+}

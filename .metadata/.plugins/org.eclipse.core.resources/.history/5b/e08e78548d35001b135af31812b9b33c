@@ -1,0 +1,122 @@
+package com.cg.terminsuranceuser.repository;
+
+import java.sql.Date;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.junit4.SpringRunner;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.cg.terminsuranceuser.entity.User;
+
+import org.assertj.core.api.Assert;
+import static org.assertj.core.api.Assertions.assertThat;
+
+@RunWith(SpringRunner.class)
+@DataJpaTest
+public class UserDaoImplTest {
+	@Autowired
+	private UserDaoImpl userDaoImpl;
+	@Autowired
+	private TestEntityManager testEntityManager;
+	@Test
+	public void testNewUser() throws Exception{
+		User user=getUser();
+		User saveInDb=testEntityManager.persist(user);
+		User getFromInDb=userDaoImpl.findById(saveInDb.getUserId()).get();
+		assertThat(getFromInDb).isEqualTo(saveInDb);
+}
+	private User getUser() {
+		User user=new User();
+		user.setUserId(10178278);
+	    user.setPolicyId(401273827);
+	    user.setUserName("Sanya");
+        user.setEmail("sanya123@gmail.com");
+        user.setMobileNo("7893436347");
+        user.setAge(25);
+        user.setDob("13-08-1996");
+	    return user;
+	}
+	@Test
+	public void testGetUserById() throws Exception{
+		User user=new User();
+		user.setUserId(10178267);
+	    user.setPolicyId(401273851);
+	    user.setUserName("Suraj");
+        user.setEmail("suraj7883@gmail.com");
+        user.setMobileNo("7879101818");
+        user.setAge(28);
+        user.setDob("07-02-1993");
+        User saveInDb=testEntityManager.persist(user);
+        User getInDb=userDaoImpl.findById(user.getUserpolicyid()).get();
+        assertThat(getInDb).isEqualTo(saveInDb);
+	}
+	@Test
+	public void testGetAllUsers() throws Exception{
+		User user1=new User();
+	    user1.setUserId(10178263);
+	    user1.setPolicyId(40127382);
+	    user1.setUserName("Hema");
+        user1.setEmail("hema26@gmail.com");
+        user1.setMobileNo("7845326170");
+        user1.setAge(27);
+        user1.setDob("16-07-1993");
+       User user2=new User();
+	    user2.setUserId(10132263);
+	    user2.setPolicyId(411273823);
+	    user2.setUserName("Rajesh");
+        user2.setEmail("rajesh1456@gmail.com");
+        user2.setMobileNo("888324151");
+        user2.setAge(35);
+        user2.setDob("09-03-1986");
+        testEntityManager.persist(user1);
+        testEntityManager.persist(user2);
+        List<User> userList=(List<User>) userDaoImpl.findAll();
+        assertEquals(2, userList.size());
+        
+	}
+	@Test
+	public void testDeleteUserById() throws Exception{
+		User user1=new User();
+		user1.setUserId(10178263);
+	    user1.setPolicyId(40127382);
+	    user1.setUserName("Hema");
+        user1.setEmail("hema26@gmail.com");
+        user1.setMobileNo("7845326170");
+        user1.setAge(27);
+        user1.setDob("16-07-1993");
+        User user2=new User();
+	    user2.setUserId(10789898);
+	    user2.setPolicyId(40211123);
+	    user2.setUserName("Varsha Singhania");
+        user2.setEmail("varsha.singhania@gmail.com");
+        user2.setMobileNo("8000067677");
+        user2.setAge(22);
+        user2.setDob("01-01-1998");
+        User user3=testEntityManager.persist(user1);
+        testEntityManager.persist(user2);
+        testEntityManager.remove(user3);
+        List<User> users=(List<User>) userDaoImpl.findAll();
+        assertEquals(users.size(),1);
+        
+	}
+	@Test
+	public void testUpdateUser() {
+		User user=new User();
+	    user.setUserId(10878781);
+	    user.setPolicyId(40255512);
+	    user.setUserName("Sharad Malhotra");
+        user.setEmail("malhotrasharad21@gmail.com");
+        user.setMobileNo("8989891212");
+        user.setAge(25);
+        user.setDob("21-12-1995");
+        testEntityManager.persist(user);
+        User getFromDb=userDaoImpl.findById(user.getUserpolicyid()).get();
+        getFromDb.setMobileNo("7878212121");
+        testEntityManager.persist(getFromDb);
+        assertThat(getFromDb.getMobileNo()).isEqualTo("7878212121");
+	}
+}

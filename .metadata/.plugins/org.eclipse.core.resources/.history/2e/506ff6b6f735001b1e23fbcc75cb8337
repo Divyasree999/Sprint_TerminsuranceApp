@@ -1,0 +1,126 @@
+package com.cg.terminsuranceuser.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "user")
+public class User {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	
+	int userPolicyId;
+	
+	int userId;
+	
+	int policyId;
+	
+	String userName;
+	
+	String email;
+
+	String mobileNo;
+
+	int age;
+	@Column(name = "dob")
+	String dob;
+
+	public User() {
+		super();
+	}
+
+	public User(int userId, int policyId, String userName, String email, String mobileNo, int age, String dob) {
+		super();
+		// this.userPolicyId = userPolicyId;
+		this.userId = userId;
+		this.policyId = policyId;
+		this.userName = userName;
+		this.email = email;
+		this.mobileNo = mobileNo;
+		this.age = age;
+		this.dob = dob;
+	}
+
+	@Column(name = "user_policy_id", nullable = false)
+	public int getUserPolicyId() {
+		return userPolicyId;
+	}
+
+	public void setUserPolicyId(int userPolicyId) {
+		this.userPolicyId = userPolicyId;
+	}
+
+	@Column(name = "user_id", nullable = false)
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	@Column(name = "policy_id", nullable = false)
+	public int getPolicyId() {
+		return policyId;
+	}
+
+	public void setPolicyId(int policyId) {
+		this.policyId = policyId;
+	}
+
+	@Column(name = "user_name", nullable = false)
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	@Column(name = "email", nullable = false)
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Column(name = "mobile_No", nullable = false)
+	public String getMobileNo() {
+		return mobileNo;
+	}
+
+	public void setMobileNo(String mobileNo) {
+		this.mobileNo = mobileNo;
+	}
+
+	@Column(name = "age", nullable = false)
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	@Column(name = "dob", nullable = false)
+	public String getDob() {
+		return dob;
+	}
+
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userPolicyId=" + userPolicyId + ", userId=" + userId + ", policyId=" + policyId + ", userName="
+				+ userName + ", email=" + email + ", mobileNo=" + mobileNo + ", age=" + age + ", dob=" + dob + "]";
+	}
+
+}

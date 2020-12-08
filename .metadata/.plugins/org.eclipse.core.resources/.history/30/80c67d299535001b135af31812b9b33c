@@ -1,0 +1,5 @@
+package com.cg.terminsurancepayment.service;
+
+public class PaymentServiceImpl {
+
+}

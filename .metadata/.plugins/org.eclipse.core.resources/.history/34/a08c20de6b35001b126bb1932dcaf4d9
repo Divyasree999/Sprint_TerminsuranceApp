@@ -1,0 +1,73 @@
+package com.cg.terminsuranceuser.service;
+
+import java.util.List;
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.cg.terminsuranceuser.entity.User;
+import com.cg.terminsuranceuser.exception.ResourceNotFoundException;
+import com.cg.terminsuranceuser.repository.UserDaoImpl;
+import com.cg.terminsuranceuser.service.UserService;
+@Service
+@Transactional
+public class UserServiceImpl implements UserService{
+	@Autowired
+	private UserDaoImpl user;
+	
+
+	public List<User> getAllUsers(){
+		return user.findAll();
+	}
+
+	public User findUserById(@PathVariable(value="id")Integer userId) throws ResourceNotFoundException {
+	
+		User user =user.findUserById(userId);
+		if(user==null)
+		{
+			new ResourceNotFoundException("User not found for this id :: " + userId);
+		}
+		return user;
+	}
+
+   /*public List<user> findByUserIdAndPolicyId(int userId,int policyId) {
+        return (List<userPolicy>) user.findByUserIdAndPolicyId(userId, policyId);
+    }*/
+    public boolean deleteUserById(Integer userpolicyid) throws ResourceNotFoundException {
+    	User user = userpolicy.findById(userpolicyid)
+				.orElseThrow(() -> new ResourceNotFoundException("User Policy ot found for this id :: " + userpolicyid));
+    	 userpolicy.delete(user);
+    	 if(null == user){
+	            return true;
+	        }
+	        return false;
+    }
+			
+
+	public User saveUser(User user) {
+		
+		return user.save(user);
+	}
+
+	public User updateUser(Integer userId,User user) throws ResourceNotFoundException {
+		User user1 = user.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User  not found for this id :: " + userId));
+		user1.setUserId(user.getUserId());
+		user1.setPolicyId(user.getPolicyId());
+		user1.setUserName(user.getUserName());
+		user1.setEmail(user.getEmail());
+		user1.setMobileNo(user.getMobileNo());
+		user1.setAge(user.getAge());
+		user1.setDob(user.getDob());
+		final User updatedUser =user.save(user1);
+		return updatedUser;
+	}
+	
+
+	public List<User> saveAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

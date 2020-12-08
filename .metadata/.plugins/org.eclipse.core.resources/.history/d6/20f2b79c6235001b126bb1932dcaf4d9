@@ -1,0 +1,18 @@
+package com.cg.terminsuranceuser.service;
+
+import java.util.List;
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.cg.terminsuranceuser.entity.User;
+import com.cg.terminsuranceuser.exception.ResourceNotFoundException;
+import com.cg.terminsuranceuser.repository.UserDaoImpl;
+
+@Service
+@Transactional
+public class UserServiceImpl {
+
+}

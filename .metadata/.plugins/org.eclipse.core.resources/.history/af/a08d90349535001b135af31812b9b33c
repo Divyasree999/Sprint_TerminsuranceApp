@@ -1,0 +1,22 @@
+package com.cg.terminsurancepayment.service;
+/** The IPaymentServiceImpl class provides access to repository methods to CRUD operations Cart details 
+ * 
+ * 
+ * @author G5
+ *
+ */
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cg.terminsurancepayment.entity.Payment;
+import com.cg.terminsurancepayment.repository.PaymentDaoImpl;
+import com.cg.terminsurancepayment.exception.DuplicatePaymentException;
+import com.cg.terminsurancepayment.exception.PaymentIdNotFoundException;
+
+@Service
+public class PaymentServiceImpl {
+
+}

@@ -1,0 +1,5 @@
+package com.cg.onlineterminsurance.user.repository;
+
+public class UserDaoImpl {
+
+}

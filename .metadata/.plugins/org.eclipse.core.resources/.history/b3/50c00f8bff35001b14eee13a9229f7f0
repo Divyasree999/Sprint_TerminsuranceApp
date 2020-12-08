@@ -1,0 +1,72 @@
+package com.cg.terminsuranceuser.service;
+
+import java.util.List;
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.cg.terminsuranceuser.entity.Customer;
+import com.cg.terminsuranceuser.exception.ResourceNotFoundException;
+import com.cg.terminsuranceuser.repository.CustomerDaoImpl;
+@Service
+@Transactional
+public class UserServiceImpl implements CustomerService{
+	@Autowired
+	private CustomerDaoImpl user;
+	
+
+	public List<Customer> getAllUsers(){
+		return user.findAll();
+	}
+
+	public Customer findUserById(@PathVariable(value="id")Integer userId) throws ResourceNotFoundException {
+	
+		Customer u =user.findByUserId(userId);
+		if(u==null)
+		{
+			new ResourceNotFoundException("User not found for this id :: " + userId);
+		}
+		return u;
+	}
+
+   /*public List<user> findByUserIdAndPolicyId(int userId,int policyId) {
+        return (List<userPolicy>) user.findByUserIdAndPolicyId(userId, policyId);
+    }*/
+    public boolean deleteUserById(Integer userId) throws ResourceNotFoundException {
+    	Customer u = user.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + userId));
+    	 user.delete(u);
+    	 if(null == u){
+	            return true;
+	        }
+	        return false;
+    }
+			
+
+	public Customer saveUser(Customer u) {
+		
+		return user.save(u);
+	}
+
+	public Customer updateUser(Integer userId,Customer u) throws ResourceNotFoundException {
+		Customer u1 = user.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User  not found for this id :: " + userId));
+		u1.setUserId(u.getUserId());
+		u1.setPolicyId(u.getPolicyId());
+		u1.setUserName(u.getUserName());
+		u1.setEmail(u.getEmail());
+		u1.setMobileNo(u.getMobileNo());
+		u1.setAge(u.getAge());
+		u1.setDob(u.getDob());
+		final Customer updatedUser =user.save(u1);
+		return updatedUser;
+	}
+	
+
+	public List<Customer> saveAll() {
+		
+		return null;
+	}
+}

@@ -1,0 +1,8 @@
+package com.cg.terminsurancepayment.exception;
+/*
+ * Payment Validations
+ * @author - Divya
+ */
+public class PaymentValidator {
+
+}

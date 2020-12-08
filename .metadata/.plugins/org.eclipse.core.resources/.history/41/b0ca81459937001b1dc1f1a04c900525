@@ -1,0 +1,93 @@
+package com.cg.terminsurancepayment.repository;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.junit4.SpringRunner;
+import com.cg.terminsurancepayment.entity.Payment;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+
+@RunWith(SpringRunner.class)
+@DataJpaTest
+public class PaymentDaoImplTest {
+	@Autowired
+	private PaymentDaoImpl paymentDaoImpl;
+	@Autowired
+	private TestEntityManager testEntityManager;
+	@Test
+	public void testNewPayment() throws Exception {
+		Payment user = getPayment();
+		Payment saveInDb = testEntityManager.persist(user);
+		Payment getInDb = paymentDaoImpl.findById(user.getPaymentId()).get();
+		assertThat(getInDb).isEqualTo(saveInDb);
+	}
+	private Payment getPayment() {
+		Payment payment = new Payment();
+		payment.setPaymentId(101143);
+		payment.setType("Debit");
+		payment.setStatus("Success");
+		payment.setCardName("Ramya");
+		payment.setCardNumber("8321 9325 0802 2345");
+		payment.setCardExpiry("10/2034");
+		payment.setCvv(900);
+	}
+	@Test
+	public void testUpdatePayment() {
+		Payment payment = new Payment();
+		payment.setPaymentId(12835);
+		payment.setType("Credit");
+		payment.setStatus("Failed");
+		payment.setCardName("sandhya");
+		payment.setCardNumber("7235 0094 3143 9250");
+		payment.setCardExpiry("09/2033");
+		payment.setCvv(804);
+		testEntityManager.persist(payment);
+		Payment getFromDb = paymentDaoImpl.findById(payment.getPaymentId()).get();
+		getFromDb.setStatus("Success");
+		testEntityManager.persist(getFromDb);
+		assertThat(getFromDb.getStatus()).isEqualTo("Success");
+	}
+	@Test
+	public void testGetPaymentById() throws Exception {
+		Payment payment = new Payment();
+		payment.setPaymentId(102221);
+		payment.setType("Credit");
+		payment.setStatus("Success");
+		payment.setCardName("Aravind");
+		payment.setCardNumber("9895 2114 9993 9321");
+		payment.setCardExpiry("07/2027");
+		payment.setCvv(943);
+		Payment saveInDb = testEntityManager.persist(payment);
+		Payment getInDb = paymentDaoImpl.findById(payment.getPaymentId()).get();
+		assertThat(getInDb).isEqualTo(saveInDb);
+	}
+
+	@Test
+	public void testGetAllPayments() throws Exception {
+		Payment payment1 = new Payment();
+		payment1.setPaymentId(102345);
+		payment1.setType("Debit");
+		payment1.setStatus("Success");
+		payment1.setCardName("Girija");
+		payment1.setCardNumber("6565 1234 5453 7771");
+		payment1.setCardExpiry("02/2022");
+		payment1.setCvv(123);
+		Payment payment2 = new Payment();
+		payment2.setPaymentId(102345);
+		payment2.setType("Credit");
+		payment2.setStatus("Filed");
+		payment2.setCardName("Sravya");
+		payment2.setCardNumber("0134 4354 6935 2734");
+		payment2.setCardExpiry("11/2040");
+		payment2.setCvv(331);
+		testEntityManager.persist(payment1);
+		testEntityManager.persist(payment2);
+		List<Payment> paymentList = (List<Payment>) paymentDaoImpl.findAll();
+		assertEquals(2, paymentList.size());
+
+	}
+}

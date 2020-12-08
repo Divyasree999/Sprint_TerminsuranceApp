@@ -1,0 +1,5 @@
+package com.cg.terminsuranceuser.exception;
+
+public class ErrorDetails {
+
+}

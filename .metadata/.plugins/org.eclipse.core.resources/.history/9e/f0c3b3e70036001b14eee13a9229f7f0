@@ -1,0 +1,122 @@
+package com.cg.terminsuranceuser.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import com.cg.terminsurancecustomer.entity.Customer;
+import com.cg.terminsurancecustomer.repository.CustomerDaoImpl;
+import com.cg.terminsurancecustomer.service.CustomerService;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.mockito.Mockito;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+class CustomerServiceTest {
+	@MockBean
+	 private CustomerDaoImpl customerDaoImpl;
+	
+	 @Autowired
+	 private CustomerService customerService;
+	
+	 @Test
+	 public void testGetUserById() throws Exception{
+		 Customer user=new Customer();
+		 user.setUserId(10178263);
+		    user.setPolicyId(40127382);
+		    user.setUserName("Hema");
+	        user.setEmail("hema26@gmail.com");
+	        user.setMobileNo("7845326170");
+	        user.setAge(27);
+	        user.setDob("16-07-1993");
+
+
+	      Mockito.when(customerDaoImpl.findByUserId(10178278)).thenReturn(user);
+	    		  //findUserById()).get()).thenReturn(user);
+	        		//Mockito.when(userDaoImpl.findById(user.getUserId()).get()).thenReturn(user);
+		        assertThat(customerService.findUserById(10178278)).isEqualTo(user);
+		    }
+
+
+	@Test
+	void testDeleteUser() throws Exception {
+		 Customer user=new Customer();
+		 user.setUserId(10178274);
+		    user.setPolicyId(401273827);
+		    user.setUserName("Sanya");
+	        user.setEmail("sanya123@gmail.com");
+	        user.setMobileNo("7893436347");
+	        user.setAge(25);
+	        user.setDob("13-08-1996");
+		customerDaoImpl.deleteById(user.getUserId());
+       System.out.println(customerDaoImpl.findById(10178274));
+       assertThat(customerDaoImpl.findById(10178274).isEmpty());
+	}
+
+	@Test
+	void testUpdateUserById() throws Exception {
+		 Customer user=new Customer();
+		 user.setUserId(10178263);
+		    user.setPolicyId(40127382);
+		    user.setUserName("Hema");
+	        user.setEmail("hema26@gmail.com");
+	        user.setMobileNo("7845326170");
+	        user.setAge(27);
+	        user.setDob("16-07-1993");
+
+		        Mockito.when(customerDaoImpl.findByUserId(10178278)).thenReturn(user);
+		        user.setMobileNo("6543874051");
+		        Mockito.when(customerDaoImpl.save(user)).thenReturn(user);
+		        System.out.println(user.getMobileNo());
+		       // assertThat(userPolicyService.updateUser(10178263, user)).isEqualTo(user);
+	}
+
+	@Test
+	void testGetAllUserPolicies() {
+		 Customer user=new Customer();
+		 user.setUserId(10178263);
+		    user.setPolicyId(40127382);
+		    user.setUserName("Hema");
+	        user.setEmail("hema26@gmail.com");
+	        user.setMobileNo("7845326170");
+	        user.setAge(27);
+	        user.setDob("16-07-1993");
+
+
+	        Customer user1=new Customer();
+	        user.setUserId(10178254);
+	        user.setPolicyId(40127672);
+		    user.setUserName("Manyatha");
+	        user.setEmail("manyatha453@gmail.com");
+	        user.setMobileNo("7487589312");
+	        user.setAge(24);
+	        user.setDob("12-09-1997");
+
+       List<Customer> userList = new ArrayList<>();
+       userList.add(user);
+       userList.add(user1);
+
+       Mockito.when(customerDaoImpl.findAll()).thenReturn(userList);
+       assertThat(customerService.getAllUsers()).isEqualTo(userList);
+	}
+
+	@Test
+	void testSaveUser() {
+		Customer user=new Customer();
+		user.setUserId(10878781);
+	    user.setPolicyId(40255512);
+	    user.setUserName("Sharad Malhotra");
+        user.setEmail("malhotrasharad21@gmail.com");
+        user.setMobileNo("8989891212");
+        user.setAge(25);
+        user.setDob("21-12-1995");
+		
+	}
+}

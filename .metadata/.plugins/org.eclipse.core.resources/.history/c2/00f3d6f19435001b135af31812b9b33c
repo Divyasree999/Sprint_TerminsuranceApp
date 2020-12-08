@@ -1,0 +1,14 @@
+package com.cg.terminsurancepayment.service;
+/** This is an interface which defines CRUD methods for Payment service
+ * 
+ * @author G5
+ *
+ */
+import java.util.List;
+
+import com.cg.terminsurancepayment.entity.Payment;
+import com.cg.terminsurancepayment.exception.DuplicatePaymentException;
+import com.cg.terminsurancepayment.exception.PaymentIdNotFoundException;
+public class PaymentService {
+
+}

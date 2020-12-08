@@ -1,0 +1,9 @@
+package com.cg.terminsurancepayment.exception;
+
+public class PaymentIdNotFoundException extends RuntimeException{
+	public static final String MESSAGE = "Payment with this Id is not found.";
+
+	public PaymentIdNotFoundException(final String MESSAGE) {
+		super(MESSAGE);
+	}
+}
